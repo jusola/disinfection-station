@@ -12,7 +12,7 @@ video_capture = cv2.VideoCapture(0)
 facedir = 'faces'
 
 known_face_encodings = []
-known_face_names = []
+known_face_userids = []
 
 min_face_size = 200
 scale = 4
@@ -24,14 +24,14 @@ for f in listdir(facedir):
         img = face_recognition.load_image_file(filePath)
         enc = face_recognition.face_encodings(img)[0]
         known_face_encodings.append(enc)
-        name = f.split('.')[0]
-        known_face_names.append(name)
-        print('Added face: '+name)
+        userid = f.split('.')[0]
+        known_face_userids.append(userid)
+        print('Added face: '+userid)
 
 # Initialize some variables
 face_locations = []
 face_encodings = []
-face_names = []
+face_userids = []
 unrec_encodings = [] # unrecognized faces, if here for two frames, add to known faces
 process_this_frame = True
 
@@ -68,7 +68,7 @@ def getFace():
     face_locations = face_recognition.face_locations(rgb_small_frame)
     face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
 
-    face_names = []
+    userid = ""
 
     for face_encoding, face_location in zip(face_encodings, face_locations):
         # See if the face is a match for the known face(s)
@@ -81,20 +81,20 @@ def getFace():
         face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
         best_match_index = np.argmin(face_distances)
         if matches[best_match_index]:
-            name = known_face_names[best_match_index]
+            userid = known_face_userids[best_match_index]
         else:
-            name = str(uuid.uuid4())
-            cv2.imwrite(path.join(facedir, name+'.jpg'), frame, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
+            userid = str(uuid.uuid4())
+            cv2.imwrite(path.join(facedir, userid+'.jpg'), frame, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
             known_face_encodings.append(face_encoding)
-            known_face_names.append(name)
-        face_names.append(name)
+            known_face_userids.append(userid)
+        face_userids.append(userid)
 
     process_this_frame = True # not process_this_frame
 
+    return userid
 
-    # Display the results
-    for (top, right, bottom, left), name in zip(face_locations, face_names):
-        # Scale back up face locations since the frame we detected in was scaled to 1/4 size
+    # Display the results -- currently not running
+    for (top, right, bottom, left), userid in zip(face_locations, face_userids):
         top *= scale
         right *= scale
         bottom *= scale
@@ -103,15 +103,13 @@ def getFace():
         # Draw a box around the face
         cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
 
-        # Draw a label with a name below the face
+        # Draw a label with a userid below the face
         cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
         font = cv2.FONT_HERSHEY_DUPLEX
-        cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+        cv2.putText(frame, userid, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
 
     # Display the resulting image
     cv2.imshow('Video', frame)
-
-    return name
 
 # Release handle to the webcam
 

@@ -2,7 +2,8 @@ import dispenser
 import facedetect
 
 def onDispense():
-    name = facedetect.getFace()
+    userid = facedetect.getFace()
+    print(userid)
 
 def end():
     facedetect.end()
