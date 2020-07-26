@@ -3,7 +3,7 @@ import serial
 import threading
 
 
-# This maybe connects to arduino?
+# This connects to arduino via serial
 
 def dispense():
     print("Dispensing")

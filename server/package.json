@@ -1,0 +1,15 @@
+{
+  "name": "first-global-disinfection-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Juuso Laine",
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "notp": "^2.0.3",
+    "otplib": "^12.0.1",
+    "simpleotp": "^1.0.0",
+    "thirty-two": "^1.0.2"
+  }
+}

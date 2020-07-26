@@ -54,10 +54,12 @@ def getFaceSize(location):
     avgsize = (hsize+vsize)/2
     return avgsize
 
-def getFace():
-    # Grab a single frame of video
-    ret, frame = video_capture.read()
 
+def getCamFace():
+    ret, frame = video_capture.read()
+    return getFace(frame)
+
+def getFace(frame):
     # Resize frame of video to 1/4 size for faster face recognition processing
     small_frame = cv2.resize(frame, (0, 0), fx=1/scale, fy=1/scale)
 
@@ -68,7 +70,7 @@ def getFace():
     face_locations = face_recognition.face_locations(rgb_small_frame)
     face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
 
-    userid = ""
+    userid = "None"
 
     for face_encoding, face_location in zip(face_encodings, face_locations):
         # See if the face is a match for the known face(s)
