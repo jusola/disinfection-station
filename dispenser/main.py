@@ -1,13 +1,14 @@
 import dispenser
 import facedetect
-import pyotp
 import net
-import base64
-import hashlib
-
+import display
 from config import config
 
+import base64
 from otpauth import OtpAuth
+import threading
+
+event = threading.Event()
 
 secret = config['auth']['secret']
 period = int(config['auth']['period'])
@@ -22,9 +23,6 @@ def onDispense():
     print(getCode())
 
 
-def onGetFace():
-    userid = facedetect.getCamFace()
-
 def end():
     facedetect.end()
 
@@ -34,3 +32,13 @@ def getCode():
     while(len(code) != 6):
         code = '0'+code
     return code
+
+while(True):
+    userid = facedetect.getCamFace()
+    if(userid != None):
+        display.showCode(getCode())
+        net.sendFace(userid)
+    else:
+        display.hideCode()
+        net.sendNoFace()
+    event.wait(5)

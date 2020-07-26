@@ -7,6 +7,8 @@ from os import path
 
 import uuid
 
+from config import config
+
 # Get a reference to webcam #0 (the default one)
 video_capture = cv2.VideoCapture(0)
 facedir = 'faces'
@@ -14,8 +16,8 @@ facedir = 'faces'
 known_face_encodings = []
 known_face_userids = []
 
-min_face_size = 200
-scale = 4
+min_face_size = int(config['detection']['minsize'])
+scale = int(config['detection']['scale'])
 
 # Load known faces
 for f in listdir(facedir):
@@ -70,7 +72,7 @@ def getFace(frame):
     face_locations = face_recognition.face_locations(rgb_small_frame)
     face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
 
-    userid = "None"
+    userid = None
 
     for face_encoding, face_location in zip(face_encodings, face_locations):
         # See if the face is a match for the known face(s)

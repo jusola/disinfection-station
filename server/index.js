@@ -3,7 +3,7 @@ import readline from 'readline'
 import base32 from 'thirty-two'
 
 const secret = '1234'
-const period = 120
+const period = 30
 const window = 1
 
 const base32secret = base32.encode(secret).toString('ascii')
