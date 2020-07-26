@@ -6,10 +6,21 @@
   "license": "MIT",
   "type": "module",
   "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
+    "argon2": "^0.26.2",
+    "dotenv": "^8.2.0",
+    "express": "^5.0.0-alpha.8",
+    "express-sanitizer": "^1.0.5",
+    "express-validator": "^6.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.21.2",
     "notp": "^2.0.3",
     "otplib": "^12.0.1",
     "simpleotp": "^1.0.0",
+    "sqlite3": "^5.0.0",
     "thirty-two": "^1.0.2"
   }
 }
