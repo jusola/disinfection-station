@@ -1,5 +1,3 @@
-import dispenser
-import facedetect
 import net
 import display
 from config import config
@@ -17,15 +15,6 @@ base32secret = base64.b32encode(bytearray(secret, 'utf-8')).decode('ascii')
 
 auth = OtpAuth(base32secret)
 
-def onDispense():
-    userid = facedetect.getCamFace()
-    net.sendDispensed(userid)
-    print(getCode())
-
-
-def end():
-    facedetect.end()
-
 def getCode():
     numcode = auth.totp(period=period)
     code = str(numcode)
@@ -33,12 +22,29 @@ def getCode():
         code = '0'+code
     return code
 
-while(True):
-    userid = facedetect.getCamFace()
+def onFaceDetect(userid):
     if(userid != None):
         display.showCode(getCode())
         net.sendFace(userid)
     else:
         display.hideCode()
         net.sendNoFace()
-    event.wait(5)
+
+
+
+def onDispense():
+    from facedetect import getCamFace
+    userid = getCamFace()
+    if(userid):
+        net.sendDispensed(userid)
+        print("dispensed to "+userid)
+
+
+def end():
+    from facedetect import stopDetect
+    stopDetect()
+
+from facedetect import detectThread
+from dispenser import serialThread
+thread_detection = detectThread(1, "Face detection thread")
+thread_dispenser = serialThread(2, "Serial thread")

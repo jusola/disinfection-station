@@ -70,19 +70,23 @@ class Database{
     }
 
     setUsername = async (userid, username) => {
-        if(await this.getUser(username)){
+        const user = await this.getUser(username)
+        if(user && user.userid !== userid){
             return false
-        }else{
-            await knex('users').where({userid: userid}).update({username: username}).then()
-            return true
         }
+        await knex('users').where({userid: userid}).update({username: username}).then()
+        return true
     }
 
     addScore = async (userid) => {
         const user = await this.getUserByID(userid)
         if(user){
             await knex('users').where({userid: userid}).update({lasttime: Date.now()}).then()
-            if(user.lasttime > Date.now()+dateOffset){
+            if(user.lasttime+dateOffset < Date.now()){
+                console.log("Adding score: "+userid)
+                if(!user.score){
+                    user.score = 0
+                }
                 await knex('users').where({userid: userid}).update({score: user.score+1}).then()
             }
             return true

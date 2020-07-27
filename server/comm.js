@@ -19,11 +19,13 @@ class InternalCommunication{
 
 const comm = new InternalCommunication
 
+router.use(express.json())
+router.use(express.urlencoded({ extended: true }))
+
 router.post('/setFace', async (req, res)=>{
     try {
         if(req.body.transferToken === process.env.transferToken){
             comm.setCurrentUser(req.body.userid)
-            console.log(req.body.userid)
             res.sendStatus(200)
         }else{
             res.sendStatus(403)

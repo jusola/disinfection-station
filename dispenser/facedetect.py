@@ -5,7 +5,10 @@ import numpy as np
 from os import listdir
 from os import path
 
+import threading
 import uuid
+
+event = threading.Event()
 
 from config import config
 
@@ -82,15 +85,16 @@ def getFace(frame):
         if size < min_face_size:
             return
 
+        if(len(known_face_encodings) == 0):
+            newFace(face_encoding, frame)
+            return
+
         face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
         best_match_index = np.argmin(face_distances)
         if matches[best_match_index]:
             userid = known_face_userids[best_match_index]
         else:
-            userid = str(uuid.uuid4())
-            cv2.imwrite(path.join(facedir, userid+'.jpg'), frame, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
-            known_face_encodings.append(face_encoding)
-            known_face_userids.append(userid)
+            newFace(face_encoding, frame)
         face_userids.append(userid)
 
     process_this_frame = True # not process_this_frame
@@ -116,7 +120,34 @@ def getFace(frame):
     cv2.imshow('Video', frame)
 
 # Release handle to the webcam
+def newFace(encoding, frame):
+    userid = str(uuid.uuid4())
+    cv2.imwrite(path.join(facedir, userid+'.jpg'), frame, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
+    known_face_encodings.append(encoding)
+    known_face_userids.append(userid)
 
-def end():
+
+class detectThread (threading.Thread):
+    def __init__(self, threadID, name):
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.name = name
+        self.running = False
+    def run(self):
+        self.running = True
+        print("Starting " + self.name)
+        faceLoop(self)
+        print("Exiting " + self.name)
+    def stop():
+        self.running = False
+
+def faceLoop(thread):
+    from main import onFaceDetect
+    while thread.running:
+        userid = getCamFace()
+        onFaceDetect(userid)
+        event.wait(1)
+
+def stopDetect():
     video_capture.release()
     cv2.destroyAllWindows()

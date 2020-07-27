@@ -10,6 +10,7 @@ import notp from 'notp'
 import base32 from 'thirty-two'
 
 import db from './db.js'
+import comm from './comm.js'
 
 const {check, validationResult} = expressValidator
 
@@ -21,10 +22,10 @@ const router = express.Router()
 router.use(express.json())
 router.use(express.urlencoded({ extended: true }))
 router.use(expressSanitizer())
-router.use((req, res, next)=>{
+/*router.use((req, res, next)=>{
     req.body = sanitize(req.body);
     next();
-})
+})*/
 
 const JWTmw = expressJWT({
     secret: jwtSecret,
@@ -137,7 +138,7 @@ router.post('/configure', [check('username').isString(), check('password').isStr
             return
         }
 
-        const resPassword = await db.setPassword(userid, password)
+        const resPassword = await db.setPassword(userid, hashed)
 
         if(!resPassword){
             res.json({
