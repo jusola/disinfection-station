@@ -1,0 +1,41 @@
+{
+  "login": {
+    "label": {
+      "password": "Password",
+      "login": "Login",
+      "user": "User"
+    },
+    "link": {
+      "recover": "Create a new account or recover your lost account"
+    },
+    "placeholder": {
+      "password": "Password",
+      "user": "Username"
+    },
+    "title": "Hand sanitizer scoreboard",
+    "instructions": "Login with your username and password or create a new account",
+    "subtitle": "Otaniemen lukio"
+  },
+  "recover": {
+    "label": {
+      "code": "Code from screen at disinfection station",
+      "recover": "Register or recover"
+    },
+    "link": {
+      "login": "Login instead"
+    },
+    "placeholder": {
+      "code": "Code"
+    },
+    "instructions": {
+      "1": "Stand in front of the hand sanitizer machine at Otaniemen lukio",
+      "2": "The screen should show you a code, if it doesn't, go closer",
+      "3": "Type the code below and click \"@:recover.label.recover\"",
+      "4": "Make sure you are still standing in front of the screen when you click the button",
+      "title": "How to create a new account or recover a lost one?"
+    }
+  },
+  "contact": {
+    "problems": "Problems? Contact"
+  }
+}
