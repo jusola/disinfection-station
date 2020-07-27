@@ -63,6 +63,12 @@ router.post('/recover', [check('code')], async(req, res)=>{
                 success: false
             })
         }
+    }else{
+        res.json({
+            success: false,
+            error: 'error.recover.nouser',
+            message: 'No face detected'
+        })
     }
 })
 
@@ -120,8 +126,28 @@ router.post('/configure', [check('username').isString(), check('password').isStr
 
         const hashed = await argon2.hash(password)
         
-        await db.setUserName(userid, username)
-        await db.setPassword(userid, hashed)
+        const resUsername = await db.setUsername(userid, username)
+
+        if(!resUsername){
+            res.json({
+                success: false,
+                error: 'error.config.usernamenotavailable',
+                message: 'Username not available'
+            })
+            return
+        }
+
+        const resPassword = await db.setPassword(userid, password)
+
+        if(!resPassword){
+            res.json({
+                success: false,
+                error: 'error.servererror',
+                message: 'Internal server error'
+            })
+            return
+        }
+        
 
         res.json({
             success: true

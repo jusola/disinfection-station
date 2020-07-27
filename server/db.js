@@ -45,9 +45,10 @@ class Database{
 
     setPassword = async (userid, password) => {
         await knex('users').where({userid: userid}).update({password: password}).then()
+        return true
     }
 
-    setUserName = async (userid, username) => {
+    setUsername = async (userid, username) => {
         if(await this.getUser(username)){
             return false
         }else{

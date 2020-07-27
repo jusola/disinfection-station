@@ -1,7 +1,10 @@
 from config import config
 
-port = config['net']['port']
-host = config['net']['host']
+import requests
+import urllib.parse
+
+address = config['net']['address']
+transferToken = config['net']['transferToken']
 
 def sendDispensed(userid):
     # print('sending net dispensed')
@@ -9,6 +12,8 @@ def sendDispensed(userid):
 
 def sendNoFace():
     # here we should make a https request to nodejs server
+    finalAddress = urllib.parse.urljoin(address, 'comm', 'setFace')
+    print(finalAddress)
     return
 
 def sendFace(userid):
