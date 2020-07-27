@@ -13,6 +13,27 @@ const knex = Knex({
 })
 
 class Database{
+    constructor() {
+        this.init()
+    }
+
+    init = async ()=>{
+        const hasTable = await knex.schema.hasTable('users')
+        if(!hasTable){
+            this.makeTable()
+        }
+    }
+
+    makeTable = async() => {
+        await knex.schema.createTable('users', (table)=>{
+            table.string('userid')
+            table.string('username')
+            table.text('password')
+            table.integer('score')
+            table.timestamp('lasttime')
+        })
+    }
+
     getUser = async (username) => {
         const users = await knex('users').where({username: username}).select().then()
         if(users.length !== 1){

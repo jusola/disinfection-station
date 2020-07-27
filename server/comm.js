@@ -1,11 +1,11 @@
 import express from 'express'
-import router from './api'
-import db from './db'
-router = express.Router()
+import db from './db.js'
+const router = express.Router()
 
 class InternalCommunication{
     constructor(){
         this.currentUser = null
+        this.router = router
     }
 
     getCurrentUser = () => {
@@ -19,10 +19,11 @@ class InternalCommunication{
 
 const comm = new InternalCommunication
 
-router.post('/setFace', (req, res)=>{
+router.post('/setFace', async (req, res)=>{
     try {
         if(req.body.transferToken === process.env.transferToken){
             comm.setCurrentUser(req.body.userid)
+            console.log(req.body.userid)
             res.sendStatus(200)
         }else{
             res.sendStatus(403)
@@ -33,7 +34,7 @@ router.post('/setFace', (req, res)=>{
 
 })
 
-router.post('/addScore', (req, res)=>{
+router.post('/addScore', async (req, res)=>{
     try {
         if(req.body.transferToken === process.env.transferToken){
             await db.addScore(req.body.userid)

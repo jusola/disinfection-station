@@ -13,6 +13,7 @@
     "argon2": "^0.26.2",
     "dotenv": "^8.2.0",
     "express": "^5.0.0-alpha.8",
+    "express-jwt": "^6.0.0",
     "express-sanitizer": "^1.0.5",
     "express-validator": "^6.6.0",
     "jsonwebtoken": "^8.5.1",
