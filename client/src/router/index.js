@@ -19,6 +19,12 @@ const routes = [
     props: true
   },
   {
+    path: '/configure',
+    name: 'Configure',
+    component: require('@/views/Configure').default,
+    props: true
+  },
+  {
     path: '/',
     name: 'redirect',
     redirect: to => {

@@ -5,15 +5,12 @@
       "login": "Login",
       "user": "User"
     },
-    "link": {
-      "recover": "Create a new account or recover your lost account"
-    },
+    "link": {},
     "placeholder": {
       "password": "Password",
       "user": "Username"
     },
     "title": "Hand sanitizer scoreboard",
-    "instructions": "Login with your username and password or create a new account",
     "subtitle": "Otaniemen lukio"
   },
   "recover": {
@@ -21,9 +18,7 @@
       "code": "Code from screen at disinfection station",
       "recover": "Register or recover"
     },
-    "link": {
-      "login": "Login instead"
-    },
+    "link": {},
     "placeholder": {
       "code": "Code"
     },
@@ -37,5 +32,28 @@
   },
   "contact": {
     "problems": "Problems? Contact"
+  },
+  "configure": {
+    "instructions": {
+      "1": "Your username will be shown on the leaderboard",
+      "title": "Choose a username and a password"
+    },
+    "placeholder": {
+      "user": "Username",
+      "password": "Password"
+    },
+    "label": {
+      "username": "Choose a new username",
+      "button": "Save",
+      "password": "Choose a password"
+    }
+  },
+  "main": {
+    "link": {
+      "configure": "Set username and password"
+    }
+  },
+  "footer": {
+    "locale": "Change locale"
   }
 }

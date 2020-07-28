@@ -7,9 +7,7 @@ export default {
   data () {
     return {
       username: '',
-      password: '',
-      recoverCode: '',
-      mode: 'login'
+      password: ''
     }
   },
   computed: {
@@ -18,16 +16,8 @@ export default {
     }
   },
   methods: {
-    login () {
-      app.login(this.username, this.password)
-      this.clearForms()
-    },
-    recover () {
-      app.recover(this.recoverCode)
-      this.clearForms()
-    },
-    switchTo (newMode) {
-      this.mode = newMode
+    configure () {
+      app.configure(this.username, this.password)
       this.clearForms()
     },
     clearForms () {
@@ -54,25 +44,15 @@ export default {
     <section class="section container">
       <div class="content">
         <p class="is-size-5">
-          {{ $t('recover.instructions.title') }}
+          {{ $t('configure.instructions.title') }}
         </p>
-        <ol
-          type="1"
+        <ul
           class="is-size-7"
         >
           <li>
-            {{ $t('recover.instructions.1') }}
+            {{ $t('configure.instructions.1') }}
           </li>
-          <li>
-            {{ $t('recover.instructions.2') }}
-          </li>
-          <li>
-            {{ $t('recover.instructions.3') }}
-          </li>
-          <li>
-            {{ $t('recover.instructions.4') }}
-          </li>
-        </ol>
+        </ul>
       </div>
     </section>
     <section
@@ -85,22 +65,22 @@ export default {
       />
       <div class="column columns is-full">
         <div
-          class="column is-half"
-          @keyup.enter="login"
+          class="column is-full"
+          @keyup.enter="configure"
         >
-          <b-field :label="$t('login.label.user')">
+          <b-field :label="$t('configure.label.username')">
             <b-input
               v-model="username"
               type="text"
-              :placeholder="$t('login.placeholder.user')"
+              :placeholder="$t('configure.placeholder.user')"
               required
             />
           </b-field>
-          <b-field :label="$t('login.label.password')">
+          <b-field :label="$t('configure.label.password')">
             <b-input
               v-model="password"
               type="password"
-              :placeholder="$t('login.placeholder.password')"
+              :placeholder="$t('configure.placeholder.password')"
               password-reveal
               required
             />
@@ -108,30 +88,9 @@ export default {
           <b-button
             expanded
             type="is-primary"
-            @click="login"
+            @click="configure"
           >
-            {{ $t('login.label.login') }}
-          </b-button>
-        </div>
-        <div
-          class="column is-half"
-          @keyup.enter="recover"
-        >
-          <b-field :label="$t('recover.label.code')">
-            <b-input
-              v-model="recoverCode"
-              type="text"
-              pattern="^[0-9]{6,}$"
-              :placeholder="$t('recover.placeholder.code')"
-              required
-            />
-          </b-field>
-          <b-button
-            expanded
-            type="is-primary"
-            @click="recover"
-          >
-            {{ $t('recover.label.recover') }}
+            {{ $t('configure.label.button') }}
           </b-button>
         </div>
       </div>

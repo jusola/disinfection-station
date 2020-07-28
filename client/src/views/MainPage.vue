@@ -1,6 +1,12 @@
 <template>
   <div>
-    Main page
+    <b-button
+      tag="router-link"
+      to="/configure"
+      type="is-info"
+    >
+      {{ $t('main.link.configure') }}
+    </b-button>
   </div>
 </template>
 

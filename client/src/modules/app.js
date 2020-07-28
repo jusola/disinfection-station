@@ -47,6 +47,22 @@ class App {
     }
   }
 
+  configure = async (username, password) => {
+    try {
+      store.addLoading(1)
+      if (!username || !password) throw new errors.QueryError('Input both password and username', 'error.configure.invalidquery')
+      await net.configure(username, password)
+      store.addLoading(-1)
+      router.push('/main')
+    } catch (err) {
+      if (err.type === 'CredentialError') {
+        router.push('/login')
+      }
+      this.showError(err)
+      store.addLoading(-1)
+    }
+  }
+
   logout = async () => {
     net.logout() // clear user token
     router.push('/') // go to login

@@ -7,6 +7,7 @@ const server = process.env.VUE_APP_API_SERVER
 class Net {
   constructor () {
     this.server = server
+    console.log(server)
   }
 
   login = async (username, password) => {
@@ -47,7 +48,7 @@ class Net {
   configure = async (username, password) => {
     if (!username || !password) throw new errors.QueryError('Invalid query', 'configure.error.invalidquery')
     if (this.isLoggedIn()) {
-      const res = await this.post('/recover', {
+      const res = await this.post('/configure', {
         data: {
           username: username,
           password: password
@@ -58,7 +59,7 @@ class Net {
         throw errors.makeError(data.error.type, data.error.message, data.error.translationKey)
       }
     } else {
-      throw new errors.QueryError('Not logged in', 'configure.error.notloggedin')
+      throw new errors.CredentialError('No token', 'configure.error.notoken')
     }
   }
 

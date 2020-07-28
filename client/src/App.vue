@@ -1,5 +1,9 @@
 <script>
-export default { name: 'Ticked' }
+import LocaleMenu from '@/components/LocaleMenu.vue'
+export default {
+  name: 'Ticked',
+  components: { LocaleMenu }
+}
 </script>
 
 <template>
@@ -13,6 +17,7 @@ export default { name: 'Ticked' }
         <p>
           {{ $t('contact.problems') }} <a href="mailto:sanitizer@jusola.xyz">sanitizer@jusola.xyz</a>
         </p>
+        <LocaleMenu />
       </div>
     </footer>
   </div>
