@@ -17,6 +17,8 @@ const {check, validationResult} = expressValidator
 const base32secret = base32.encode(process.env.secret).toString('ascii')
 const jwtSecret = process.env.jwtSecret
 
+const verifyWindow = 2
+
 const router = express.Router()
 
 router.use(express.json())
@@ -44,7 +46,9 @@ router.use((req, res, next) => {
 router.post('/recover', [check('code')], async(req, res)=>{
     const id = comm.getCurrentUser()
     if(id){
-        const result = notp.totp.verify(req.body.code, base32secret)
+        const result = notp.totp.verify(req.body.code, base32secret, {
+            window: verifyWindow
+        })
         if(result){
             const user = await db.getUserByID(id)
             if(!user){
