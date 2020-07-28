@@ -1,6 +1,7 @@
 class Store {
   constructor () {
     this.loadingCount = 0
+    this.scores = []
   }
 
   addLoading = (loadingChange) => {
@@ -9,6 +10,14 @@ class Store {
 
   getLoading = () => {
     return this.loadingCount
+  }
+
+  setScores = (newScores) => {
+    this.scores = newScores
+  }
+
+  getScores = () => {
+    return this.scores
   }
 }
 

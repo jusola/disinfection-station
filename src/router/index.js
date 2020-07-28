@@ -25,6 +25,12 @@ const routes = [
     props: true
   },
   {
+    path: '/scoreboard',
+    name: 'Scoreboard',
+    component: require('@/views/Scoreboard').default,
+    props: true
+  },
+  {
     path: '/',
     name: 'redirect',
     redirect: to => {

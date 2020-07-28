@@ -63,6 +63,19 @@ class Net {
     }
   }
 
+  getScores = async () => {
+    try {
+      const res = await this.get('/scores')
+      const data = res.data
+      if (!data.success) {
+        throw errors.makeError(data.error.type, data.error.message, data.error.translationKey)
+      }
+      return res.data.scores
+    } catch (error) {
+      throw new errors.NetworkError('Network error', 'getscores.error.network')
+    }
+  }
+
   getToken = () => {
     return localStorage.getItem('token')
   }

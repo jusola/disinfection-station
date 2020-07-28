@@ -50,10 +50,26 @@
   },
   "main": {
     "link": {
-      "configure": "Set username and password"
+      "configure": "Set username and password",
+      "scoreboard": "Scoreboard"
+    },
+    "label": {
+      "actions": "Actions"
+    },
+    "button": {
+      "logout": "Logout"
     }
   },
   "footer": {
     "locale": "Change locale"
+  },
+  "scoreboard": {
+    "label": {
+      "username": "Username",
+      "score": "Score"
+    },
+    "link": {
+      "back": "Back"
+    }
   }
 }

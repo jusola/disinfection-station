@@ -63,6 +63,18 @@ class App {
     }
   }
 
+  getScores = async () => {
+    try {
+      store.addLoading(1)
+      const scores = await net.getScores()
+      store.setScores(scores)
+      store.addLoading(-1)
+    } catch (err) {
+      this.showError(err)
+      store.addLoading(-1)
+    }
+  }
+
   logout = async () => {
     net.logout() // clear user token
     router.push('/') // go to login
