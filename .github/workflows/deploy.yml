@@ -32,7 +32,7 @@ jobs:
         git config --global user.email "github@jusola.xyz"
         git config --global user.name "Deployment"
         git init
-        echo sanitizer.jusola.xyz > CNAME
+        echo sanitizer.otaniemi.org > CNAME
         git add -A
         git commit -m "deploy"
     
