@@ -69,7 +69,7 @@ router.post('/recover', [check('code')], async(req, res)=>{
         res.json({
             success: false,
             error: {
-                type: 'Credential<Error',
+                type: 'CredentialError',
                 translationKey: 'error.recover.nouser',
                 message: 'No user found, are you close enough to the camera?'
             }
@@ -91,6 +91,18 @@ router.post('/login', [check('username').isString(), check('password').isString(
         const {password, username} = req.body;
         
         const user = await db.getUser(username)
+
+        if(!user){
+            res.json({
+                success: false,
+                error: {
+                    type: 'CredentialError',
+                    translationKey: 'error.login.nouser',
+                    message: 'User not found'
+                }
+            })
+            return
+        }
 
         if(await argon2.verify(user.password, password)){
             const token = signUser(user.userid)
