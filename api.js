@@ -69,7 +69,7 @@ router.post('/recover', [check('code')], async(req, res)=>{
         res.json({
             success: false,
             error: {
-                type: 'CredentialError',
+                type: 'Credential<Error',
                 translationKey: 'error.recover.nouser',
                 message: 'No user found, are you close enough to the camera?'
             }
@@ -107,6 +107,7 @@ router.post('/login', [check('username').isString(), check('password').isString(
         }
 
     } catch (error) {
+        console.error(error)
         res.json({
             success: false,
             error: {
@@ -168,6 +169,7 @@ router.post('/configure', [check('username').isString(), check('password').isStr
         })
 
     } catch (error) {
+        console.error(error)
         res.json({
             success: false,
             error: 'error.servererror',
