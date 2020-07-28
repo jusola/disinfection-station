@@ -1,0 +1,74 @@
+@import "~bulma/sass/utilities/_all";
+
+* {
+  box-sizing: border-box;
+}
+
+html{
+  overflow: scroll !important;
+  margin: 0;
+  height: 100%;
+  padding: 0;
+}
+
+body{
+  height: 100%;
+}
+
+.is-viewport-height {
+  height: 100%;
+  box-sizing: border-box;
+}
+  
+.has-direction-column {
+  flex-direction: column;
+}
+
+.is-fullheight {
+  flex: 1;
+}
+
+.flexed{
+  flex: 1;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  .main-layout {
+      display: flex;
+      flex-direction: row;
+      min-height: 100%;
+  }
+}
+
+.main-content{
+  flex: 1;
+  padding: 1rem !important;
+  display: flex;
+}
+
+.is-sidebar-menu {
+  padding: 1rem !important;
+}
+
+.is-login{
+  padding: 1rem !important;
+}
+
+
+::-webkit-scrollbar {
+  width: .6em;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $border;
+  border-radius: 2px;
+  border-color: rgba(0,0,0,0);
+  border-width: 2px;
+}
+
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
