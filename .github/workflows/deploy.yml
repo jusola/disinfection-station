@@ -4,7 +4,7 @@ name: Deploy
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [ client ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,10 +29,10 @@ jobs:
     - name: Commit changes and add CNAME
       run: |
         cd dist
-        git config --global user.email "ticked.deployment@jusola.xyz"
-        git config --global user.name "Ticked deployment"
+        git config --global user.email "github@jusola.xyz"
+        git config --global user.name "Deployment"
         git init
-        echo ticked.jusola.xyz > CNAME
+        echo otaniemi.jusola.xyz > CNAME
         git add -A
         git commit -m "deploy"
     
