@@ -4,13 +4,23 @@ const dbFile = process.env.dbFile || './data.db'
 
 const dateOffset = 1000*60*5 // only count between 5 minutes
 
-const knex = Knex({
-    client: 'sqlite3',
-    connection: {
-        filename: dbFile
+const dbConfig = {
+    production: {
+        client: 'pg',
+        connection: process.env.DATABASE_URL,
     },
-    useNullAsDefault: true
-})
+    development: {
+        client: 'sqlite3',
+        connection: {
+            filename: dbFile
+        },
+        useNullAsDefault: true
+    }
+}
+
+const usedConfig = dbConfig[process.env.NODE_ENV || 'development']
+
+const knex = Knex(usedConfig)
 
 class Database{
     constructor() {
