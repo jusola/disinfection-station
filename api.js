@@ -190,6 +190,25 @@ router.post('/configure', [check('username').isString(), check('password').isStr
     }
 })
 
+router.get('/scores', async (req, res)=>{
+    try {
+        const scores= await db.getScores()
+        res.json({
+            success: true,
+            scores: scores
+        })
+    } catch (error) {
+        res.json({
+            success: false,
+            error: {
+                type: 'ServerError',
+                message: 'Internal server error',
+                translationKey: 'error.servererror'
+            }
+        })
+    }
+})
+
 router.use(function (err, req, res, next) {
     if (err.name === 'UnauthorizedError') {
         console.warn('Invalid token', err);

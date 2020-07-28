@@ -44,6 +44,11 @@ class Database{
         })
     }
 
+    getScores = async () => {
+        const users = await knex('users').orderBy('score', 'desc').select('score', 'username').then()
+        return users
+    }
+
     getUser = async (username) => {
         const users = await knex('users').where({username: username}).select().then()
         if(users.length !== 1){
