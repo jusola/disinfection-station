@@ -37,5 +37,8 @@ def sendFace(userid):
     return
 
 def post(address, data):
-    r = requests.post(address, data)
-    return r
+    try:
+        r = requests.post(address, data)
+        return r
+    except:
+        print('Error while posting')

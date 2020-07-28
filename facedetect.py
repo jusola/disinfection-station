@@ -61,7 +61,7 @@ def getFaceSize(location):
 
 
 def getCamFace():
-    frame = video_capture.read()
+    ret, frame = video_capture.read()
     return getFace(frame)
 
 def getFace(frame):
