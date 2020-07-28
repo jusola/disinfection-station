@@ -1,6 +1,8 @@
 import serial
 import threading
 
+from config import config
+
 event = threading.Event()
 
 class serialThread (threading.Thread):
@@ -14,16 +16,15 @@ class serialThread (threading.Thread):
         print("Starting " + self.name)
         readSerial(self)
         print("Exiting " + self.name)
-    def stop():
+    def stop(self):
         self.running = False
 
-#ser = serial.Serial('/dev/ttyUSB0')
 # This connects to arduino via serial
 def readSerial(thread):
     from main import onDispense
+    dev = config['dispenser']['device']
+    ser = serial.Serial(dev)
     while thread.running:
-        #line = ser.readline()
-        #if(line == 'd'):
-        #    onDispense()
-        event.wait(5)
-        onDispense()
+        line = ser.readline()
+        if(line == 'd'):
+            onDispense()

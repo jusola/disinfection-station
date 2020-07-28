@@ -61,7 +61,7 @@ def getFaceSize(location):
 
 
 def getCamFace():
-    ret, frame = video_capture.read()
+    frame = video_capture.read()
     return getFace(frame)
 
 def getFace(frame):
@@ -138,7 +138,7 @@ class detectThread (threading.Thread):
         print("Starting " + self.name)
         faceLoop(self)
         print("Exiting " + self.name)
-    def stop():
+    def stop(self):
         self.running = False
 
 def faceLoop(thread):
