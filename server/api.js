@@ -32,17 +32,13 @@ const JWTmw = expressJWT({
     algorithms: ['HS256']
 });
 
+
 // headers
 router.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-type,Authorization')
-    if(process.env.NODE_ENV !== "development"){
-        res.setHeader('Access-Control-Allow-Origin', 'https://ticked.jusola.xyz')
-        res.setHeader('Vary', 'Origin')
-    }else{
-        res.setHeader('Access-Control-Allow-Origin', '*')
-    }
+    res.setHeader('Access-Control-Allow-Origin', '*')
 
-    next();
+    next()
 });
 
 router.post('/recover', [check('code')], async(req, res)=>{
@@ -61,14 +57,22 @@ router.post('/recover', [check('code')], async(req, res)=>{
             })
         }else{
             res.json({
-                success: false
+                success: false,
+                error: {
+                    type: 'CredentialError',
+                    translationKey: 'error.recover.invalidcode',
+                    message: 'Invalid code'
+                }
             })
         }
     }else{
         res.json({
             success: false,
-            error: 'error.recover.nouser',
-            message: 'No face detected'
+            error: {
+                type: 'CredentialError',
+                translationKey: 'error.recover.nouser',
+                message: 'No user found, are you close enough to the camera?'
+            }
         })
     }
 })
@@ -105,8 +109,11 @@ router.post('/login', [check('username').isString(), check('password').isString(
     } catch (error) {
         res.json({
             success: false,
-            error: 'error.servererror',
-            message: 'Internal server error'
+            error: {
+                type: 'ServerError',
+                translationKey: 'error.servererror',
+                message: 'Internal server error'
+            }
         })
     }
 })
@@ -118,8 +125,11 @@ router.post('/configure', [check('username').isString(), check('password').isStr
             console.log(vErrors)
             res.json({
                 success: false,
-                error: 'error.configure.invalidquery',
-                message: 'Invalid query'
+                error: {
+                    type: 'QueryError',
+                    translationKey: 'error.config.invalidquery',
+                    message: 'Invalid request'
+                }
             })
         }
         const {username, password} = req.body
@@ -132,8 +142,11 @@ router.post('/configure', [check('username').isString(), check('password').isStr
         if(!resUsername){
             res.json({
                 success: false,
-                error: 'error.config.usernamenotavailable',
-                message: 'Username not available'
+                error: {
+                    type: 'QueryError',
+                    translationKey: 'error.config.usernamenotavailable',
+                    message: 'Username not available'
+                }
             })
             return
         }

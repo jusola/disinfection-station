@@ -22,6 +22,13 @@ const comm = new InternalCommunication
 router.use(express.json())
 router.use(express.urlencoded({ extended: true }))
 
+router.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Headers', 'Content-type,Authorization')
+    res.setHeader('Access-Control-Allow-Origin', '*')
+
+    next()
+});
+
 router.post('/setFace', async (req, res)=>{
     try {
         if(req.body.transferToken === process.env.transferToken){
