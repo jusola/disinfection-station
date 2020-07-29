@@ -86,7 +86,6 @@ class App {
           visitsThisWeek++
         }
         elem.time = new Date(elem.time).toLocaleString(locale)
-        console.log(elem.time)
         this[index] = elem
       }, visits)
       store.setVisits(visits)
