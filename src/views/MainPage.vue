@@ -11,36 +11,53 @@
       </div>
     </section>
     <section class="section">
-      <div class="container">
-        <b-button
-          tag="router-link"
-          to="/scoreboard"
-          type="is-large"
-          class="is-primary"
-        >
-          {{ $t('main.link.scoreboard') }}
-        </b-button>
-      </div>
-    </section>
-    <section class="section">
-      <div class="container">
-        <p>{{ $t('main.label.actions') }}</p>
-        <div>
-          <b-button
-            tag="router-link"
-            to="/configure"
-            type="is-info"
-          >
-            {{ $t('main.link.configure') }}
-          </b-button>
+      <div class="columns">
+        <div class="column">
+          <div class="stats box notification is-success">
+            <div class="is-size-2 has-text-weight-semibold">
+              {{ store.visitsToday }} {{ $t('main.stats.today') }}
+            </div>
+            <div class="is-size-4">
+              {{ store.visitsThisWeek }} {{ $t('main.stats.thisweek') }}
+            </div>
+            <div class="is-size-4">
+              {{ store.visits.length }} {{ $t('main.stats.total') }}
+            </div>
+          </div>
+          <div class="actions box notification is-info">
+            <div
+              class="buttons"
+            >
+              <b-button
+                tag="router-link"
+                to="/scoreboard"
+                type="is-large"
+                class="is-primary"
+              >
+                {{ $t('main.link.scoreboard') }}
+              </b-button>
+            </div>
+            <div class="buttons">
+              <b-button
+                tag="router-link"
+                to="/configure"
+                type="is-warning"
+              >
+                {{ $t('main.link.configure') }}
+              </b-button>
+              <b-button
+                type="is-danger"
+                @click="logout"
+              >
+                {{ $t('main.button.logout') }}
+              </b-button>
+            </div>
+          </div>
         </div>
-        <div>
-          <b-button
-            type="is-danger"
-            @click="logout"
-          >
-            {{ $t('main.button.logout') }}
-          </b-button>
+        <div class="column">
+          <div class="box">
+            <VisitTable />
+          </div>
         </div>
       </div>
     </section>
@@ -49,8 +66,17 @@
 
 <script>
 import app from '@/modules/app'
+import store from '@/modules/store'
+import VisitTable from '@/components/VisitTable'
 
 export default {
+  name: 'MainPage',
+  components: { VisitTable },
+  data () {
+    return {
+      store: store
+    }
+  },
   methods: {
     logout () {
       app.logout()

@@ -34,11 +34,11 @@ class App {
     }
   }
 
-  recover = async (code) => {
+  recover = async (code, location) => {
     try {
       store.addLoading(1)
-      if (!code) throw new errors.QueryError('Input valid code', 'error.recover.invalidquery')
-      await net.recover(code)
+      if (!code || !location) throw new errors.QueryError('Input valid code', 'error.recover.invalidquery')
+      await net.recover(code, location)
       store.addLoading(-1)
       router.push('/configure')
     } catch (err) {
@@ -65,13 +65,35 @@ class App {
 
   getScores = async () => {
     try {
-      store.addLoading(1)
       const scores = await net.getScores()
       store.setScores(scores)
-      store.addLoading(-1)
     } catch (err) {
       this.showError(err)
-      store.addLoading(-1)
+    }
+  }
+
+  getVisits = async () => {
+    try {
+      var visits = await net.getVisits()
+      var visitsToday = 0
+      var visitsThisWeek = 0
+      const locale = vue.$i18n.locale
+      visits.forEach((elem, index) => {
+        if (elem.time > Date.now() - 1000 * 60 * 60 * 24) {
+          visitsToday++
+        }
+        if (elem.time > Date.now() - 1000 * 60 * 60 * 24 * 7) {
+          visitsThisWeek++
+        }
+        elem.time = new Date(elem.time).toLocaleString(locale)
+        console.log(elem.time)
+        this[index] = elem
+      }, visits)
+      store.setVisits(visits)
+      store.setVisitsToday(visitsToday)
+      store.setVisitsThisWeek(visitsThisWeek)
+    } catch (err) {
+      this.showError(err)
     }
   }
 

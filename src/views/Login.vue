@@ -9,6 +9,7 @@ export default {
       username: '',
       password: '',
       recoverCode: '',
+      recoverLocation: '',
       mode: 'login'
     }
   },
@@ -23,7 +24,7 @@ export default {
       this.clearForms()
     },
     recover () {
-      app.recover(this.recoverCode)
+      app.recover(this.recoverCode, this.recoverLocation)
       this.clearForms()
     },
     switchTo (newMode) {
@@ -34,6 +35,7 @@ export default {
       this.username = ''
       this.password = ''
       this.recoverCode = ''
+      this.recoverLocation = ''
     }
   }
 }
@@ -123,6 +125,14 @@ export default {
               type="text"
               pattern="^[0-9]{6,}$"
               :placeholder="$t('recover.placeholder.code')"
+              required
+            />
+          </b-field>
+          <b-field :label="$t('recover.label.location')">
+            <b-input
+              v-model="recoverLocation"
+              type="text"
+              :placeholder="$t('recover.placeholder.location')"
               required
             />
           </b-field>

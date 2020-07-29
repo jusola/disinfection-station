@@ -29,11 +29,12 @@ class Net {
     }
   }
 
-  recover = async (code) => {
-    if (code) {
+  recover = async (code, location) => {
+    if (code && location) {
       const res = await this.post('/recover', {
         data: {
-          code: code
+          code: code,
+          location: location
         }
       })
       const data = res.data
@@ -42,6 +43,8 @@ class Net {
       } else {
         throw errors.makeError(data.error.type, data.error.message, data.error.translationKey)
       }
+    } else {
+      throw new errors.QueryError('Code or location missing', 'recover.error.invalidquery')
     }
   }
 
@@ -73,6 +76,19 @@ class Net {
       return res.data.scores
     } catch (error) {
       throw new errors.NetworkError('Network error', 'getscores.error.network')
+    }
+  }
+
+  getVisits = async () => {
+    try {
+      const res = await this.get('/visits')
+      const data = res.data
+      if (!data.success) {
+        throw errors.makeError(data.error.type, data.error.message, data.error.translationKey)
+      }
+      return res.data.visits
+    } catch (error) {
+      throw new errors.NetworkError('Network error', 'getvisits.error.network')
     }
   }
 

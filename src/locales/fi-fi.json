@@ -1,17 +1,17 @@
 {
   "configure": {
     "instructions": {
-      "1": "Käyttäjätunnuksesi näkyy tulostaulussa",
-      "title": "Valitse s"
+      "1": "Käyttäjätunnuksesi näkyy pistetaulukossa",
+      "title": "Valitse käyttäjänimi ja salasana"
     },
     "label": {
-      "button": "Tallentaa",
+      "button": "Tallenna",
       "password": "Valitse salasana",
-      "username": "Valitse uusi käyttäjänimi"
+      "username": "Valitse käyttäjänimi"
     },
     "placeholder": {
       "password": "Salasana",
-      "user": "Käyttäjätunnus"
+      "user": "Käyttäjänimi"
     }
   },
   "contact": {
@@ -21,36 +21,63 @@
     "label": {
       "login": "Kirjaudu sisään",
       "password": "Salasana",
-      "user": "käyttäjä"
+      "user": "Käyttäjä"
     },
     "placeholder": {
       "password": "Salasana",
       "user": "Käyttäjätunnus"
     },
     "subtitle": "Otaniemen lukio",
-    "title": "Desinfioinnin tulostaulu"
+    "title": "Käsidesi pistetaulukko"
   },
   "main": {
     "link": {
-      "configure": "Aseta käyttäjänimi ja salasana"
+      "configure": "Vaihda käyttäjänimi ja salasana",
+      "scoreboard": "Pistetaulukko"
+    },
+    "button": {
+      "logout": "Kirjaudu ulos"
+    },
+    "stats": {
+      "thisweek": "tällä viikolla",
+      "today": "tänään",
+      "total": "yhteensä"
     }
   },
   "recover": {
     "instructions": {
-      "1": "Seiso käsipuhdistusaineen edessä Otaniemen lukiossa",
-      "2": "Näytössä pitäisi näyttää sinulle koodi, jos sitä ei ole, mene lähemmäksi",
-      "3": "Kirjoita alla oleva koodi ja napsauta \"@: recovery.label.recover\"",
-      "4": "Varmista, että seisot yhä näytön edessä, kun napsautat painiketta"
+      "1": "Seiso käsidesiautomaatin edessä Otaniemen lukiolla",
+      "2": "Automaatin näytöllä pitäisi olla koodi ja sijainti. Jos ei, mene lähemmäs.",
+      "3": "Kirjoita alle koodi ja sijainti ja klikkaa \"@:recovery.label.recover\"",
+      "4": "Varmista, että seisot yhä näytön edessä, kun klikkaat nappia",
+      "title": "Rekisteröitymisohjeet:"
     },
     "label": {
-      "code": "Koodi näytöltä desinfiointiasemalla",
-      "recover": "Rekisteröidy tai palauta"
+      "code": "Koodi näytöltä käsidesiautomaatilla",
+      "recover": "Rekisteröidy tai palauta",
+      "location": "Sijainti (näkyy näytöllä)"
     },
     "placeholder": {
-      "code": "Koodi"
+      "code": "Koodi",
+      "location": "Sijainti"
     }
   },
   "footer": {
     "locale": "Valitse kieli"
+  },
+  "scoreboard": {
+    "label": {
+      "score": "Pisteet",
+      "username": "Käyttäjänimi"
+    },
+    "link": {
+      "back": "Takaisin"
+    }
+  },
+  "visits": {
+    "label": {
+      "location": "Paikka",
+      "time": "Aika"
+    }
   }
 }
