@@ -44,7 +44,7 @@ class Database{
             table.string('username')
             table.text('password')
             table.integer('score')
-            table.timestamp('lasttime')
+            table.bigInteger('lasttime')
         })
     }
 
@@ -52,7 +52,7 @@ class Database{
         await knex.schema.createTable('visits', (table)=>{
             table.string('userid')
             table.string('location')
-            table.timestamp('time')
+            table.bigInteger('time')
         })
     }
 
