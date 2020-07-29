@@ -21,7 +21,7 @@ event = threading.Event()
 
 lastDistance = 0
 
-threshold = config['dispenser']['threshold']
+threshold = int(config['dispenser']['threshold'])
 
 class dispenserThread (threading.Thread):
     def __init__(self, threadID, name):
