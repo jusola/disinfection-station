@@ -8,14 +8,10 @@ export default {
     return {
       username: '',
       password: '',
-      recoverCode: '',
-      recoverLocation: '',
-      mode: 'login'
-    }
-  },
-  computed: {
-    loading () {
-      return store.getLoading()
+      registerCode: '',
+      registerLocation: '',
+      mode: 'login',
+      store: store
     }
   },
   methods: {
@@ -23,8 +19,8 @@ export default {
       app.login(this.username, this.password)
       this.clearForms()
     },
-    recover () {
-      app.recover(this.recoverCode, this.recoverLocation)
+    register () {
+      app.register(this.registerCode, this.registerLocation)
       this.clearForms()
     },
     switchTo (newMode) {
@@ -34,8 +30,8 @@ export default {
     clearForms () {
       this.username = ''
       this.password = ''
-      this.recoverCode = ''
-      this.recoverLocation = ''
+      this.registerCode = ''
+      this.registerLocation = ''
     }
   }
 }
@@ -56,23 +52,23 @@ export default {
     <section class="section container">
       <div class="content">
         <p class="is-size-5">
-          {{ $t('recover.instructions.title') }}
+          {{ $t('register.instructions.title') }}
         </p>
         <ol
           type="1"
           class="is-size-7"
         >
           <li>
-            {{ $t('recover.instructions.1') }}
+            {{ $t('register.instructions.1') }}
           </li>
           <li>
-            {{ $t('recover.instructions.2') }}
+            {{ $t('register.instructions.2') }}
           </li>
           <li>
-            {{ $t('recover.instructions.3') }}
+            {{ $t('register.instructions.3') }}
           </li>
           <li>
-            {{ $t('recover.instructions.4') }}
+            {{ $t('register.instructions.4') }}
           </li>
         </ol>
       </div>
@@ -81,7 +77,7 @@ export default {
       class="section container"
     >
       <b-loading
-        :active="loading !== 0"
+        :active="store.loadingCount !== 0"
         :is-full-page="true"
         :can-cancel="false"
       />
@@ -117,31 +113,31 @@ export default {
         </div>
         <div
           class="column is-half"
-          @keyup.enter="recover"
+          @keyup.enter="register"
         >
-          <b-field :label="$t('recover.label.code')">
+          <b-field :label="$t('register.label.location')">
             <b-input
-              v-model="recoverCode"
+              v-model="registerLocation"
               type="text"
-              pattern="^[0-9]{6,}$"
-              :placeholder="$t('recover.placeholder.code')"
+              :placeholder="$t('register.placeholder.location')"
               required
             />
           </b-field>
-          <b-field :label="$t('recover.label.location')">
+          <b-field :label="$t('register.label.code')">
             <b-input
-              v-model="recoverLocation"
+              v-model="registerCode"
               type="text"
-              :placeholder="$t('recover.placeholder.location')"
+              pattern="^[0-9]{6,}$"
+              :placeholder="$t('register.placeholder.code')"
               required
             />
           </b-field>
           <b-button
             expanded
             type="is-primary"
-            @click="recover"
+            @click="register"
           >
-            {{ $t('recover.label.recover') }}
+            {{ $t('register.label.register') }}
           </b-button>
         </div>
       </div>

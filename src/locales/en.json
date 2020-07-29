@@ -13,10 +13,10 @@
     "title": "Hand sanitizer scoreboard",
     "subtitle": "Otaniemen lukio"
   },
-  "recover": {
+  "register": {
     "label": {
       "code": "Code from screen at disinfection station",
-      "recover": "Register or recover",
+      "register": "Register",
       "location": "Location of station (shown on screen)"
     },
     "link": {},
@@ -27,7 +27,7 @@
     "instructions": {
       "1": "Stand in front of the hand sanitizer station at Otaniemen lukio",
       "2": "The screen should show you a code and a location, if it doesn't, go closer",
-      "3": "Type the code and the location below and click \"@:recover.label.recover\"",
+      "3": "Type the code and the location below and click \"@:register.label.register\"",
       "4": "Make sure you are still standing in front of the screen when you click the button",
       "title": "Instructions to create a new account:"
     }
@@ -55,7 +55,6 @@
       "configure": "Set username and password",
       "scoreboard": "Scoreboard"
     },
-    "label": {},
     "button": {
       "logout": "Logout"
     },

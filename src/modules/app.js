@@ -34,11 +34,11 @@ class App {
     }
   }
 
-  recover = async (code, location) => {
+  register = async (code, location) => {
     try {
       store.addLoading(1)
-      if (!code || !location) throw new errors.QueryError('Input valid code', 'error.recover.invalidquery')
-      await net.recover(code, location)
+      if (!code || !location) throw new errors.QueryError('Input valid code', 'error.register.invalidquery')
+      await net.register(code, location)
       store.addLoading(-1)
       router.push('/configure')
     } catch (err) {

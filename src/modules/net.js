@@ -28,9 +28,9 @@ class Net {
     }
   }
 
-  recover = async (code, location) => {
+  register = async (code, location) => {
     if (code && location) {
-      const res = await this.post('/recover', {
+      const res = await this.post('/register', {
         data: {
           code: code,
           location: location
@@ -43,7 +43,7 @@ class Net {
         throw errors.makeError(data.error.type, data.error.message, data.error.translationKey)
       }
     } else {
-      throw new errors.QueryError('Code or location missing', 'recover.error.invalidquery')
+      throw new errors.QueryError('Code or location missing', 'register.error.invalidquery')
     }
   }
 

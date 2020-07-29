@@ -44,17 +44,17 @@
       "total": "yhteensä"
     }
   },
-  "recover": {
+  "register": {
     "instructions": {
       "1": "Seiso käsidesiautomaatin edessä Otaniemen lukiolla",
       "2": "Automaatin näytöllä pitäisi olla koodi ja sijainti. Jos ei, mene lähemmäs.",
-      "3": "Kirjoita alle koodi ja sijainti ja klikkaa \"@:recovery.label.recover\"",
+      "3": "Kirjoita alle koodi ja sijainti ja klikkaa \"@:register.label.register\"",
       "4": "Varmista, että seisot yhä näytön edessä, kun klikkaat nappia",
       "title": "Rekisteröitymisohjeet:"
     },
     "label": {
       "code": "Koodi näytöltä käsidesiautomaatilla",
-      "recover": "Rekisteröidy tai palauta",
+      "register": "Rekisteröidy",
       "location": "Sijainti (näkyy näytöllä)"
     },
     "placeholder": {
