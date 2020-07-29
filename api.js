@@ -43,14 +43,14 @@ router.use((req, res, next) => {
     next()
 });
 
-router.post('/recover', [check('code'), check('location')], async(req, res)=>{
+router.post('/register', [check('code'), check('location')], async(req, res)=>{
     var location = req.body.location
     if(!location) {
         res.json({
             success: false,
             error: {
                 type: 'QueryError',
-                translationKey: 'error.recover.nolocation',
+                translationKey: 'error.register.nolocation',
                 message: 'Location missing'
             }
         })
@@ -66,6 +66,16 @@ router.post('/recover', [check('code'), check('location')], async(req, res)=>{
             const user = await db.getUserByID(id)
             if(!user){
                 await db.createUser(id)
+            }else{
+                res.json({
+                    success: false,
+                    error: {
+                        type: 'CredentialError',
+                        translationKey: 'error.register.userexists',
+                        message: 'User already exists'
+                    }
+                })
+                return
             }
             const token = signUser(id)
             res.json({
@@ -77,7 +87,7 @@ router.post('/recover', [check('code'), check('location')], async(req, res)=>{
                 success: false,
                 error: {
                     type: 'CredentialError',
-                    translationKey: 'error.recover.invalidcode',
+                    translationKey: 'error.register.invalidcode',
                     message: 'Invalid code'
                 }
             })
@@ -87,7 +97,7 @@ router.post('/recover', [check('code'), check('location')], async(req, res)=>{
             success: false,
             error: {
                 type: 'CredentialError',
-                translationKey: 'error.recover.nouser',
+                translationKey: 'error.register.nouser',
                 message: 'No user found, are you close enough to the camera?'
             }
         })
