@@ -43,8 +43,7 @@ def runDispenser(thread):
     from main import onDispense
     while thread.running:
         x = etaisyys()
-        print(x)
-        if x < threshold and lastDistance > threshold:
+        if x <= threshold and lastDistance > threshold:
             dispense()
             onDispense()
             event.wait(2)
