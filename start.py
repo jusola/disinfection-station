@@ -4,10 +4,10 @@ import sys
 
 try:
     thread_detection.start()
-    thread_dispenser.start()
+#    thread_dispenser.start()
     while True: time.sleep(100)
 except KeyboardInterrupt:
     print("Keyboard interrupt")
-    thread_dispenser.stop()
+#    thread_dispenser.stop()
     thread_detection.stop()
     sys.exit(0)
