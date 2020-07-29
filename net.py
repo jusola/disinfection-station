@@ -42,7 +42,7 @@ def sendFace(userid):
 
 def post(address, data):
     try:
-        r = requests.post(address, data)
+        r = requests.post(address, data=data, timeout=1)
         return r
     except:
         print('Error while posting')
