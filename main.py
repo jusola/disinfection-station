@@ -35,6 +35,7 @@ def onFaceDetect(userid):
 def onDispense():
     from facedetect import getCamFace
     userid = getCamFace()
+    print("dispensing")
     if(userid):
         net.sendDispensed(userid)
         print("dispensed to "+userid)
