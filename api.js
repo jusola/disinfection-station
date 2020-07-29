@@ -43,8 +43,21 @@ router.use((req, res, next) => {
     next()
 });
 
-router.post('/recover', [check('code')], async(req, res)=>{
-    const id = comm.getCurrentUser()
+router.post('/recover', [check('code'), check('location')], async(req, res)=>{
+    var location = req.body.location
+    if(!location) {
+        res.json({
+            success: false,
+            error: {
+                type: 'QueryError',
+                translationKey: 'error.recover.nolocation',
+                message: 'Location missing'
+            }
+        })
+        return
+    }
+    location = String(location).toLowerCase()
+    const id = comm.getCurrentUser(location)
     if(id){
         const result = notp.totp.verify(req.body.code, base32secret, {
             window: verifyWindow
@@ -190,6 +203,25 @@ router.post('/configure', [check('username').isString(), check('password').isStr
             success: false,
             error: 'error.servererror',
             message: 'Internal server error'
+        })
+    }
+})
+
+router.get('/visits', JWTmw, async (req, res)=>{
+    try {
+        const visits = await db.getVisits(req.user.userid)
+        res.json({
+            success: true,
+            visits: visits
+        })
+    } catch (error) {
+        res.json({
+            success: false,
+            error: {
+                type: 'ServerError',
+                message: 'Internal server error',
+                translationKey: 'error.servererror'
+            }
         })
     }
 })

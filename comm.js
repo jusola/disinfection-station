@@ -4,16 +4,16 @@ const router = express.Router()
 
 class InternalCommunication{
     constructor(){
-        this.currentUser = null
+        this.currentUsers = new Map()
         this.router = router
     }
 
-    getCurrentUser = () => {
-        return this.currentUser
+    getCurrentUser = (location) => {
+        return this.currentUsers.get(location)
     }
 
-    setCurrentUser = (newUser) => {
-        this.currentUser = newUser
+    setCurrentUser = (userid, location) => {
+        this.currentUsers.set(location, userid)
     }
 }
 
@@ -32,7 +32,9 @@ router.use((req, res, next) => {
 router.post('/setFace', async (req, res)=>{
     try {
         if(req.body.transferToken === process.env.transferToken){
-            comm.setCurrentUser(req.body.userid)
+            var location = req.body.location
+            if(!location) location = 'unknown'
+            comm.setCurrentUser(req.body.userid, location)
             res.sendStatus(200)
         }else{
             res.sendStatus(403)
@@ -46,7 +48,9 @@ router.post('/setFace', async (req, res)=>{
 router.post('/addScore', async (req, res)=>{
     try {
         if(req.body.transferToken === process.env.transferToken){
-            await db.addScore(req.body.userid)
+            var location = req.body.location
+            if(!location) location = 'unknown'
+            await db.addScore(req.body.userid, location)
             res.sendStatus(200)
         }else{
             res.sendStatus(403)

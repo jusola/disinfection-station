@@ -7,7 +7,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "node index.js"
+    "dev": "node -r dotenv/config.js index.js"
   },
   "dependencies": {
     "argon2": "^0.26.2",

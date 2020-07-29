@@ -2,7 +2,7 @@ import Knex from 'knex'
 
 const dbFile = process.env.dbFile || './data.db'
 
-const dateOffset = 1000*60*5 // only count between 5 minutes
+const dateOffset = 1000 // only count between 5 minutes
 
 const dbConfig = {
     production: {
@@ -28,13 +28,17 @@ class Database{
     }
 
     init = async ()=>{
-        const hasTable = await knex.schema.hasTable('users')
-        if(!hasTable){
-            this.makeTable()
+        const hasTableUsers = await knex.schema.hasTable('users')
+        if(!hasTableUsers){
+            this.makeTableUsers()
+        }
+        const hasTableVisits = await knex.schema.hasTable('visits')
+        if(!hasTableVisits){
+            this.makeTableVisits()
         }
     }
 
-    makeTable = async() => {
+    makeTableUsers = async() => {
         await knex.schema.createTable('users', (table)=>{
             table.string('userid')
             table.string('username')
@@ -44,9 +48,22 @@ class Database{
         })
     }
 
+    makeTableVisits = async () => {
+        await knex.schema.createTable('visits', (table)=>{
+            table.string('userid')
+            table.string('location')
+            table.timestamp('time')
+        })
+    }
+
     getScores = async () => {
         const users = await knex('users').orderBy('score', 'desc').select('score', 'username').then()
         return users
+    }
+
+    getVisits = async (userid) => {
+        const visits = await knex('visits').where({userid: userid}).orderBy('time', 'desc').select().then()
+        return visits
     }
 
     getUser = async (username) => {
@@ -93,7 +110,7 @@ class Database{
         return true
     }
 
-    addScore = async (userid) => {
+    addScore = async (userid, location) => {
         const user = await this.getUserByID(userid)
         if(user){
             await knex('users').where({userid: userid}).update({lasttime: Date.now()}).then()
@@ -103,6 +120,11 @@ class Database{
                     user.score = 0
                 }
                 await knex('users').where({userid: userid}).update({score: user.score+1}).then()
+                await knex('visits').insert({
+                    userid: userid,
+                    time: Date.now(),
+                    location: location
+                }).then()
             }
             return true
         }else{
