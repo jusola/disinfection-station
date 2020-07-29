@@ -11,6 +11,10 @@ class Store {
     this.loadingCount += loadingChange
   }
 
+  getLoading = (loadingChange) => {
+    return loadingChange
+  }
+
   setScores = (newScores) => {
     this.scores = newScores
   }
