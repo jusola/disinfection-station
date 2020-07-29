@@ -40,6 +40,7 @@ router.post('/setFace', async (req, res)=>{
             res.sendStatus(403)
         }  
     } catch (error) {
+        console.error(error)
         res.sendStatus(500)
     }
 
@@ -56,6 +57,7 @@ router.post('/addScore', async (req, res)=>{
             res.sendStatus(403)
         }
     } catch (error) {
+        console.error(error)
         res.sendStatus(500)
     }
 })
