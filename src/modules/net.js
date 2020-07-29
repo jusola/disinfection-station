@@ -7,7 +7,6 @@ const server = process.env.VUE_APP_API_SERVER
 class Net {
   constructor () {
     this.server = server
-    console.log(server)
   }
 
   login = async (username, password) => {
