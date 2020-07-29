@@ -28,7 +28,7 @@ export default {
   },
   mounted () {
     app.getVisits()
-    this.interval = setInterval(app.getVisits, 1000 * 30)
+    this.interval = setInterval(app.getVisits, 1000 * 60 * 5)
   },
   beforeDestroy () {
     clearInterval(this.interval)

@@ -36,7 +36,7 @@ export default {
   },
   mounted () {
     app.getScores()
-    this.interval = setInterval(app.getScores, 1000 * 30)
+    this.interval = setInterval(app.getScores, 1000 * 60 * 5)
   },
   beforeDestroy () {
     clearInterval(this.interval)
