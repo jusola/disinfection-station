@@ -11,3 +11,4 @@ pyserial==3.4
 requests==2.24.0
 schedule==0.6.0
 urllib3==1.25.10
+pygame
