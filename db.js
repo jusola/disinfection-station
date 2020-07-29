@@ -1,3 +1,6 @@
+import pg from 'pg'
+pg.types.setTypeParser(20, 'text', parseInt)
+
 import Knex from 'knex'
 
 const dbFile = process.env.dbFile || './data.db'
