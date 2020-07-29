@@ -101,24 +101,6 @@ def getFace(frame):
 
     return userid
 
-    # Display the results -- currently not running
-    for (top, right, bottom, left), userid in zip(face_locations, face_userids):
-        top *= scale
-        right *= scale
-        bottom *= scale
-        left *= scale
-
-        # Draw a box around the face
-        cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
-
-        # Draw a label with a userid below the face
-        cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
-        font = cv2.FONT_HERSHEY_DUPLEX
-        cv2.putText(frame, userid, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
-
-    # Display the resulting image
-    cv2.imshow('Video', frame)
-
 # Release handle to the webcam
 def newFace(encoding, frame):
     userid = str(uuid.uuid4())
@@ -146,7 +128,7 @@ def faceLoop(thread):
     while thread.running:
         userid = getCamFace()
         onFaceDetect(userid)
-        event.wait(1)
+        event.wait(2)
 
 def stopDetect():
     video_capture.release()

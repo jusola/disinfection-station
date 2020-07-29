@@ -5,13 +5,15 @@ import urllib.parse
 
 address = config['net']['address']
 transferToken = config['net']['transferToken']
+location = config['net']['location']
 
 def sendDispensed(userid):
     # print('sending net dispensed')
     finalAddress = urllib.parse.urljoin(address, 'comm/addScore')
     data = {
         'userid': userid,
-        'transferToken': transferToken
+        'transferToken': transferToken,
+        'location': location
     }
     post(finalAddress, data)
     return
@@ -21,7 +23,8 @@ def sendNoFace():
     finalAddress = urllib.parse.urljoin(address, 'comm/setFace')
     data = {
         'userid': None,
-        'transferToken': transferToken
+        'transferToken': transferToken,
+        'location': location
     }
     post(finalAddress, data)
     return
@@ -31,7 +34,8 @@ def sendFace(userid):
     finalAddress = urllib.parse.urljoin(address, 'comm/setFace')
     data = {
         'userid': userid,
-        'transferToken': transferToken
+        'transferToken': transferToken,
+        'location': location
     }
     post(finalAddress, data)
     return

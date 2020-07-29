@@ -22,9 +22,6 @@ class serialThread (threading.Thread):
 # This connects to arduino via serial
 def readSerial(thread):
     from main import onDispense
-    dev = config['dispenser']['device']
-    ser = serial.Serial(dev)
     while thread.running:
-        line = ser.readline()
-        if(line == 'd'):
-            onDispense()
+        event.wait(5)
+        onDispense()
