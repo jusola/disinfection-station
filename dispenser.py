@@ -41,6 +41,7 @@ class dispenserThread (threading.Thread):
 # This connects to arduino via serial
 def runDispenser(thread):
     from main import onDispense
+    global lastDistance
     while thread.running:
         x = etaisyys()
         if x <= threshold and lastDistance > threshold:
