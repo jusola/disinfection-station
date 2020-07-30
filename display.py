@@ -9,9 +9,12 @@ fontsize = 48
 padding = 20
 
 pygame.init()
-infoObject = pygame.display.Info()
-dw = infoObject.current_w
-dh = infoObject.current_h
+#infoObject = pygame.display.Info()
+#dw = infoObject.current_w
+#dh = infoObject.current_h
+
+dw = 1920
+dh = 1080
 
 w = int(dw*0.33)
 h = padding*3+fontsize*2
