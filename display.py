@@ -1,5 +1,5 @@
 import pygame
-import pygame.freetype  # Import the freetype module.
+import pygame.freetype
 import os
 import random
 
@@ -9,6 +9,7 @@ fontsize = 48
 padding = 20
 
 pygame.init()
+pygame.video.init()
 infoObject = pygame.display.Info()
 dw = infoObject.current_w
 dh = infoObject.current_h
