@@ -7,8 +7,7 @@ try:
     thread_detection.start()
     thread_dispenser.start()
     while True:
-	time.sleep(1)
-	runDisplay()
+	    runDisplay()
 except KeyboardInterrupt:
     print("Keyboard interrupt")
     thread_detection.stop()
