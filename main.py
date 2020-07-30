@@ -10,10 +10,14 @@ event = threading.Event()
 
 secret = config['auth']['secret']
 period = int(config['auth']['period'])
+useDispenser = config['dispenser'].getboolean('enabled')
 
 base32secret = base64.b32encode(bytearray(secret, 'utf-8')).decode('ascii')
 
 auth = OtpAuth(base32secret)
+
+curFrame = None
+
 
 def getCode():
     numcode = auth.totp(period=period)
@@ -22,7 +26,12 @@ def getCode():
         code = '0'+code
     return code
 
-def onFaceDetect(userid):
+def getCurFrame():
+    return curFrame
+
+def onFaceDetect(userid, frame):
+    global curFrame
+    curFrame = frame
     if(userid != None):
         display.showCode(getCode())
         net.sendFace(userid)
@@ -33,8 +42,10 @@ def onFaceDetect(userid):
 
 
 def onDispense():
+    global curFrame
     from facedetect import getCamFace
-    userid = getCamFace()
+    userid, frame = getCamFace()
+    curFrame = frame
     print("dispensing")
     if(userid):
         net.sendDispensed(userid)
@@ -46,6 +57,8 @@ def end():
     stopDetect()
 
 from facedetect import detectThread
-from dispenser import dispenserThread
 thread_detection = detectThread(1, "Face detection thread")
-thread_dispenser = dispenserThread(2, "Dispenser thread")
+if(useDispenser):
+    print("using dispenser")
+    from dispenser import dispenserThread
+    thread_dispenser = dispenserThread(2, "Dispenser thread")

@@ -62,14 +62,11 @@ def getFaceSize(location):
 
 def getCamFace():
     ret, frame = video_capture.read()
-    return getFace(frame)
+    return getFace(frame), frame
 
 def getFace(frame):
     try:
-        cv2.destroyAllWindows()
-        cv2.imshow('Video', frame)
-        cv2.waitKey(5000)
-        cv2.destroyAllWindows()
+        print("getface")
         # Resize frame of video to 1/4 size for faster face recognition processing
         small_frame = cv2.resize(frame, (0, 0), fx=1/scale, fy=1/scale)
 
@@ -131,8 +128,8 @@ class detectThread (threading.Thread):
 def faceLoop(thread):
     from main import onFaceDetect
     while thread.running:
-        userid = getCamFace()
-        onFaceDetect(userid)
+        userid, frame = getCamFace()
+        onFaceDetect(userid, frame)
 
 def stopDetect():
     video_capture.release()
