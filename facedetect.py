@@ -100,6 +100,8 @@ def getFace(frame):
 
         process_this_frame = True # not process_this_frame
 
+        cv2.imshow('Video', frame)
+
         return userid
     except Exception as e:
         print(str(e))
