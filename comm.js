@@ -13,6 +13,8 @@ class InternalCommunication{
     }
 
     setCurrentUser = (userid, location) => {
+        console.log("setting user")
+        console.log(userid)
         this.currentUsers.set(location, userid)
     }
 }
