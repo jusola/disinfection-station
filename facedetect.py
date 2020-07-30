@@ -65,41 +65,44 @@ def getCamFace():
     return getFace(frame)
 
 def getFace(frame):
-    # Resize frame of video to 1/4 size for faster face recognition processing
-    small_frame = cv2.resize(frame, (0, 0), fx=1/scale, fy=1/scale)
+    try:
+        # Resize frame of video to 1/4 size for faster face recognition processing
+        small_frame = cv2.resize(frame, (0, 0), fx=1/scale, fy=1/scale)
 
-    # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
-    rgb_small_frame = small_frame[:, :, ::-1]
+        # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
+        rgb_small_frame = small_frame[:, :, ::-1]
 
-    # Find all the faces and face encodings in the current frame of video
-    face_locations = face_recognition.face_locations(rgb_small_frame)
-    face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
+        # Find all the faces and face encodings in the current frame of video
+        face_locations = face_recognition.face_locations(rgb_small_frame)
+        face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
 
-    userid = None
+        userid = None
 
-    for face_encoding, face_location in zip(face_encodings, face_locations):
-        # See if the face is a match for the known face(s)
-        matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
+        for face_encoding, face_location in zip(face_encodings, face_locations):
+            # See if the face is a match for the known face(s)
+            matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
 
-        size = getFaceSize(face_location)
-        if size < min_face_size:
-            return
+            size = getFaceSize(face_location)
+            if size < min_face_size:
+                return
 
-        if(len(known_face_encodings) == 0):
-            newFace(face_encoding, frame)
-            return
+            if(len(known_face_encodings) == 0):
+                newFace(face_encoding, frame)
+                return
 
-        face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
-        best_match_index = np.argmin(face_distances)
-        if matches[best_match_index]:
-            userid = known_face_userids[best_match_index]
-        else:
-            newFace(face_encoding, frame)
-        face_userids.append(userid)
+            face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
+            best_match_index = np.argmin(face_distances)
+            if matches[best_match_index]:
+                userid = known_face_userids[best_match_index]
+            else:
+                newFace(face_encoding, frame)
+            face_userids.append(userid)
 
-    process_this_frame = True # not process_this_frame
+        process_this_frame = True # not process_this_frame
 
-    return userid
+        return userid
+    except Exception as e:
+        print(str(e))
 
 # Release handle to the webcam
 def newFace(encoding, frame):
