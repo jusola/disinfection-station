@@ -46,6 +46,6 @@ def end():
     stopDetect()
 
 from facedetect import detectThread
-from dispenser import dispenserThread
+#from dispenser import dispenserThread
 thread_detection = detectThread(1, "Face detection thread")
-thread_dispenser = dispenserThread(2, "Dispenser thread")
+#thread_dispenser = dispenserThread(2, "Dispenser thread")

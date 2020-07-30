@@ -66,6 +66,10 @@ def getCamFace():
 
 def getFace(frame):
     try:
+
+        cv2.imshow('Video', frame)
+        cv2.waitKey(2000)
+        cv2.destroyAllWindows()
         # Resize frame of video to 1/4 size for faster face recognition processing
         small_frame = cv2.resize(frame, (0, 0), fx=1/scale, fy=1/scale)
 
@@ -98,10 +102,6 @@ def getFace(frame):
                 newFace(face_encoding, frame)
             face_userids.append(userid)
 
-        process_this_frame = True # not process_this_frame
-
-        cv2.imshow('Video', frame)
-
         return userid
     except Exception as e:
         print(str(e))
@@ -133,7 +133,6 @@ def faceLoop(thread):
     while thread.running:
         userid = getCamFace()
         onFaceDetect(userid)
-        event.wait(2)
 
 def stopDetect():
     video_capture.release()
